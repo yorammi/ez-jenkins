@@ -3,7 +3,7 @@
 
 ## ez - what is it for?
 
-## ez - what is that with the name?
+## ez - what is it with the name?
 former name: yajyl - Yet Another Jenkins Yaml-based-CI/CD Library
 
 ## ez - how to set Jenkins to use it?
