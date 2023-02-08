@@ -1,7 +1,7 @@
 #!/usr/bin/env groovy
 
-def call (String yaml = "ez.yaml") {
-  def yamlFile = yaml
+def call (String ezYamlFilePath = "ez.yaml") {
+  def yamlFile = ezYamlFilePath
   def yaml = readYaml file: yamlFile
   def stages = yaml.stages
   node {
