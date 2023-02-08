@@ -1,7 +1,15 @@
 #!/usr/bin/env groovy
 
-def call (String ezYamlFilePath = "ez.yaml") {
-  def yaml = readYaml file: ezYamlFilePath
+def call (Map config) {
+  if(config == null) 
+  {
+    config = [:]
+  }
+  if(config.ezYamlFilePath == null)
+  {
+    config.ezYamlFilePath = "ez.yaml"
+  }
+  def yaml = readYaml file: config.ezYamlFilePath
   def stages = yaml.stages
   node {
     stages.each { stage ->
