@@ -1,6 +1,6 @@
 #!/usr/bin/env groovy
 
-def flow(Map config) {
+def call(Map config) {
   if(config == null) 
   {
     config = [:]
