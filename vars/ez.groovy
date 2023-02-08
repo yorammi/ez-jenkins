@@ -1,6 +1,6 @@
 #!/usr/bin/env groovy
 
-def call {
+def call (Map params) {
   def yamlFile = "ez.yaml"
   def yaml = readYaml file: yamlFile
   def stages = yaml.stages
