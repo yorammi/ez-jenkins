@@ -25,7 +25,7 @@ class ezEasy extends ezBaseJob {
             def yaml = script.readYaml file: config.ezYamlFilePath
             def stages = yaml.stages
             stages.each { stage ->
-                echo "${stage.name}"
+                script.ezLog.anchor "${stage.name}"
                 script.stage("${stage.name}") {
                     stage.steps.each { step ->
                         eval "${step}"
