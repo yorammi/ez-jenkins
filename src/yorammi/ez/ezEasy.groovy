@@ -1,6 +1,6 @@
 package yorammi.ez;
 
-import yorammi.ez.baseJob
+import yorammi.ez.ezBaseJob
 import java.text.SimpleDateFormat 
 import java.util.Date
 
