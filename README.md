@@ -7,6 +7,9 @@
 former name: yajyl - Yet Another Jenkins Yaml-based-CI/CD Library
 
 ## ez - how to set Jenkins to use it?
+Plugins that must be installed:
+- ansiColor
+- pipeline utility steps
 
 ## ez - how to use it inside your GIT repository?
 
