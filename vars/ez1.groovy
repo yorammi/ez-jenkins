@@ -13,10 +13,10 @@ def call(Map config) {
   def stages = yaml.stages
   stages.each { stage ->
     echo "${stage.name}"
-    // stage("${stage.name}") {
+     stage("${stage.name}") {
       stage.steps.each { step ->
         // eval "${step}"
       }
-    // }
+    }
   }
 }
