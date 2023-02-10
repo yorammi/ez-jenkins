@@ -11,13 +11,11 @@ def call(Map config) {
   }
   def yaml = readYaml file: config.ezYamlFilePath
   def stages = yaml.stages
-  // node {
-  //   stages.each { stage ->
-  //     stage("${stage.name}") {
-  //       stage.steps.each { step ->
-  //         eval "${step}"
-  //       }
-  //     }
-  //   }
-  // }
+  stages.each { stage ->
+    stage("${stage.name}") {
+      stage.steps.each { step ->
+        eval "${step}"
+      }
+    }
+  }
 }
