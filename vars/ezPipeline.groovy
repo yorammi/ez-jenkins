@@ -18,15 +18,15 @@ def call(Map config) {
     }
 
     pipeline {
-        // agent { label 'RCCBaseAgent' }
-        // options {
-        //     timestamps()
-        //     buildDiscarder(logRotator(numToKeepStr: config.numToKeepStr))
-        //     ansiColor('xterm')
-        //     skipDefaultCheckout()
-        //     disableConcurrentBuilds()
-        //     quietPeriod(config.quietPeriod)
-        // }
+        agent any
+        options {
+            timestamps()
+            buildDiscarder(logRotator(numToKeepStr: config.numToKeepStr))
+            ansiColor('xterm')
+            skipDefaultCheckout()
+            disableConcurrentBuilds()
+            quietPeriod(config.quietPeriod)
+        }
         // parameters {
         //     string (name: 'PRID', defaultValue: '', description:'Pull request ID')
         //     string (name: 'PRDESTINATION', defaultValue: '', description:'Pull request destination branch')
