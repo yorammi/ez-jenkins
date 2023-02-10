@@ -31,9 +31,9 @@ class ezEasy extends ezBaseJob {
     }
 
     void setup() {
-        if(deleteWorkspace) {
-            script.checkout script.scm
-        }
+        // if(deleteWorkspace) {
+        //     script.checkout script.scm
+        // }
 
         script.sh "env"
     }
