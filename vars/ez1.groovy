@@ -15,7 +15,7 @@ def call(Map config) {
     echo "${stage.name}"
     // stage("${stage.name}") {
       stage.steps.each { step ->
-        eval "${step}"
+        // eval "${step}"
       }
     // }
   }
