@@ -31,7 +31,7 @@ class ezEasy extends ezBaseJob {
     }
 
     void setup() {
-        script.ezLog.info ""setup start"
+        script.ezLog.info "setup start"
         // if(deleteWorkspace) {
         //     script.checkout script.scm
         // }
