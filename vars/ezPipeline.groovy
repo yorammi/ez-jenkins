@@ -34,9 +34,9 @@ def call(Map config) {
         stages {
             stage ("[Pipeline setup]") {
                 steps {
-                    script {
-                        // checkout scm
-                    }
+                    // script {
+                    //     // checkout scm
+                    // }
                 }
             }
             stage ("[ez Flow]") {
