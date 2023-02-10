@@ -30,6 +30,6 @@ abstract class ezBaseJob implements Serializable {
         script.ezLog.anchor("${name} stage start")
         currentStage = name
         script.stage(name, stage)
-        script.log.anchor("${name} stage end")
+        script.ezLog.anchor("${name} stage end")
     }
 }
