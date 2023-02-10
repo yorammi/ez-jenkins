@@ -29,7 +29,7 @@ class ezEasy extends ezBaseJob {
                 script.stage("${stage.name}") {
                     stage.steps.each { step ->
                         script.ezLog.info "${step}"
-                        script.sh "${step}"
+                        "${step}"
                     }
                 }
             }
