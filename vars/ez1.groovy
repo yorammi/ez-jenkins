@@ -13,9 +13,9 @@ def call(Map config) {
   def stages = yaml.stages
   stages.each { stage ->
     stage("${stage.name}") {
-      stage.steps.each { step ->
-//        eval "${step}"
-      }
+      // stage.steps.each { step ->
+      //   eval "${step}"
+      // }
     }
   }
 }
