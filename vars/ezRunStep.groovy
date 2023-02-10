@@ -2,6 +2,7 @@ import yorammi.ez.ezEasy
 
 def call(String step) {
     script {
-        eval "${step}"
+        def shell = new GroovyShell()
+        shell.evaluate "${step}"
     }
 }
