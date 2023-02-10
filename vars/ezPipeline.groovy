@@ -39,6 +39,15 @@ def call(Map config) {
                     }
                 }
             }
+            stage ("[ez Flow]") {
+                steps {
+                    script {
+                        def ezPipeline = new yorammi.ez.ezEasy(this)
+                        ezPipeline.config=config
+                        ezPipeline.activate()
+                    }
+                }
+            }
         }
         post {
             always {
