@@ -22,6 +22,16 @@ class ezEasy extends ezBaseJob {
         try {
             buildNumber = script.env.BUILD_NUMBER
             activateStage('Setup', this.&setup)
+            def yaml = script.readYaml file: config.ezYamlFilePath
+            def stages = yaml.stages
+            stages.each { stage ->
+                echo "${stage.name}"
+                script.stage("${stage.name}") {
+                    stage.steps.each { step ->
+                        eval "${step}"
+                    }
+                }
+            }
         } catch (error) {
             script.ezLog.debug "[ERROR] "+error.message
             script.currentBuild.result = "FAILURE"
@@ -36,7 +46,14 @@ class ezEasy extends ezBaseJob {
         //     script.checkout script.scm
         // }
 
-        script.sh "env"
+        if(config == null) 
+        {
+            config = [:]
+        }
+        if(config.ezYamlFilePath == null)
+        {
+            config.ezYamlFilePath = "ez.yaml"
+        }
     }
 }
 
