@@ -28,7 +28,7 @@ class ezEasy extends ezBaseJob {
                 script.ezLog.anchor "${stage.name}"
                 script.stage("${stage.name}") {
                     stage.steps.each { step ->
-                        eval "${step}"
+                        script.eval "${step}"
                     }
                 }
             }
