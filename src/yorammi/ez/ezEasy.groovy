@@ -61,7 +61,6 @@ class ezEasy extends ezBaseJob {
     }
 
     void activateStage(def stage) {
-        try {
             script.ezLog.anchor "Stage: ${stage.name}"
             File file = File.createTempFile("temp",".groovy")
             file.deleteOnExit()
@@ -70,16 +69,17 @@ class ezEasy extends ezBaseJob {
                 stage.steps.each { step ->
                     currentSteps+="\n"+step
                 }
+                try {
+                    script.writeFile file: file.absolutePath, text: "#!/usr/bin/env groovy\n${currentSteps}"
+                    script.load(file.absolutePath)
+                } catch (error) {
+                    script.ezLog.debug "[ERROR] "+error.message
+                    script.currentBuild.result = "FAILURE"
+                    throw error
+                }
+                finally {
+                }
             }
-            script.writeFile file: file.absolutePath, text: "#!/usr/bin/env groovy\n${currentSteps}"
-            script.load(file.absolutePath)
-        } catch (error) {
-            script.ezLog.debug "[ERROR] "+error.message
-            script.currentBuild.result = "FAILURE"
-            throw error
-        }
-        finally {
-        }
     }
 }
 
