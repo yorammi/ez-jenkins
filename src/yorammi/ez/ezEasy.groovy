@@ -22,7 +22,7 @@ class ezEasy extends ezBaseJob {
         buildNumber = script.env.BUILD_NUMBER
         activateStage('Setup', this.&setup)
         def yaml = script.readYaml file: config.ezYamlFilePath
-        def stages = yaml.phases
+        def phases = yaml.phases
         phases.each { phase ->
             script.ezLog.anchor "{Phase}: ${phase.name}"
             activatePhase(phase)
