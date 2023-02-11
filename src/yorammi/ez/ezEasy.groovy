@@ -22,6 +22,7 @@ class ezEasy extends ezBaseJob {
     void activateImpl() {
         buildNumber = script.env.BUILD_NUMBER
         activateStage('ez flow setup', this.&ezSetup)
+        activateFlow
     }
 
     void ezSetup() {
