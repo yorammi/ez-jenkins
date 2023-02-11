@@ -19,31 +19,12 @@ class ezEasy extends ezBaseJob {
 
     @Override
     void activateImpl() {
-        try {
-            buildNumber = script.env.BUILD_NUMBER
-            activateStage('Setup', this.&setup)
-            def yaml = script.readYaml file: config.ezYamlFilePath
-            def stages = yaml.stages
-            stages.each { stage ->
-                activateStage(stage)
-                // script.ezLog.anchor "Stage: ${stage.name}"
-                // File file = File.createTempFile("temp",".groovy")
-                // file.deleteOnExit()
-                // def currentSteps = ""
-                // script.stage("${stage.name}") {
-                //     stage.steps.each { step ->
-                //         currentSteps+="\n"+step
-                //     }
-                // }
-                // script.writeFile file: file.absolutePath, text: "#!/usr/bin/env groovy\n${currentSteps}"
-                // script.load(file.absolutePath)
-            }
-        } catch (error) {
-            script.ezLog.debug "[ERROR] "+error.message
-            script.currentBuild.result = "FAILURE"
-            throw error
-        }
-        finally {
+        buildNumber = script.env.BUILD_NUMBER
+        activateStage('Setup', this.&setup)
+        def yaml = script.readYaml file: config.ezYamlFilePath
+        def stages = yaml.stages
+        stages.each { stage ->
+            activateStage(stage)
         }
     }
 
