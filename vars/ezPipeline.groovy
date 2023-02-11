@@ -20,7 +20,7 @@ def call(Map config) {
     {
         config.ezNumToKeepStr = "5"
     }
-    String agentString = any
+    String agentString = "any"
     if (config.ezMainLabel != null) {
         agentString = "{ label \"${config.ezMainLabel}\" }"
     }
