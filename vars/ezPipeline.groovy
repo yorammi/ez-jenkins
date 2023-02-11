@@ -20,10 +20,6 @@ def call(Map config) {
     {
         config.ezNumToKeepStr = "5"
     }
-    def agentString = any
-    if (config.ezMainLabel != null) {
-        agentString = "{ label \"${config.ezMainLabel}\" }"
-    }
 
     pipeline {
         if (config.ezMainLabel != null) {
