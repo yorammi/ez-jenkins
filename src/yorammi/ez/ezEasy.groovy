@@ -21,8 +21,8 @@ class ezEasy extends ezBaseJob {
     @Override
     void activateImpl() {
         buildNumber = script.env.BUILD_NUMBER
-        activateStage('ez flow setup', this.&ezSetup)
-        activateStage('[ez stages]', this.&activateFlow)
+        activateStage('setup', this.&ezSetup)
+        activateStage('[flow]', this.&activateFlow)
     }
 
     void ezSetup() {
@@ -63,8 +63,8 @@ class ezEasy extends ezBaseJob {
         File file = File.createTempFile("temp",".groovy")
         file.deleteOnExit()
         def currentSteps = ""
-        parallelBlocks["[${phase}] ${stage.name}"] = {
-            script.stage("[${phase}] ${stage.name}") {
+        parallelBlocks["${phase}:${stage.name}"] = {
+            script.stage("${phase}:${stage.name}") {
                 stage.steps.each { step ->
                     currentSteps+="\n"+step
                 }
