@@ -34,7 +34,7 @@ def consolelog(String type, String text) {
     }
     else {
         if(type=='ERROR') {
-            colorCode="31"
+            colorCode="33"
             colorName="red"
         }
         else {
