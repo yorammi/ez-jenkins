@@ -24,12 +24,14 @@ class ezEasy extends ezBaseJob {
             activateStage('Setup', this.&setup)
             def yaml = script.readYaml file: config.ezYamlFilePath
             def stages = yaml.stages
+            def shell = new GroovyShell()
             stages.each { stage ->
                 script.ezLog.anchor "${stage.name}"
                 script.stage("${stage.name}") {
                     stage.steps.each { step ->
                         script.ezLog.info "${step}"
-                        script.ezRunStep "${step}"
+                        shell.evaluate "${step}"
+                        // script.ezRunStep "${step}"
                     }
                 }
             }
