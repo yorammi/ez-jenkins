@@ -29,11 +29,16 @@ class ezEasy extends ezBaseJob {
                 script.stage("${stage.name}") {
                     stage.steps.each { step ->
                         script.ezLog.info "${step}"
-                        if(step.type == 'sh') {
+                        switch (step.type) {
+                        case "sh":
                             script.sh step.args
-                        } 
-                        else if(step.type == 'step') {
-                           eval{ step.args } 
+                            break
+                        case "echo":
+                            script.echo step.args
+                            break
+                        default:
+                            echo "Invalid step type"
+                            error "Invalid step type: ${step.type}"
                         }
                     }
                 }
