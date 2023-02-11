@@ -46,7 +46,7 @@ class ezEasy extends ezBaseJob {
     void activatePhase(def yaml, def phase) {
         def stages = phase.stages
         stages.each { stage ->
-            activateStage(yaml.stages[name:stage])
+            activateStage(yaml.stages[name==stage])
         }
     }
 
