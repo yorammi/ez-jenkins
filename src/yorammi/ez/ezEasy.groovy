@@ -31,14 +31,16 @@ class ezEasy extends ezBaseJob {
                 def currentSteps = ""
                 script.stage("${stage.name}") {
                     stage.steps.each { step ->
-                        // script.ezLog.info "Running: ${step}"
                         currentSteps+="\n"+step
-                        script.writeFile file: ".ezTempStep.groovy", text: "#!/usr/bin/env groovy\n\n${step}"
-                        // script.load(".ezTempStep.groovy")
                     }
                 }
-                script.writeFile file: file.absolutePath, text: "#!/usr/bin/env groovy\n${currentSteps}"
-                script.load(file.absolutePath)
+                try {
+                    script.writeFile file: file.absolutePath, text: "#!/usr/bin/env groovy\n${currentSteps}"
+                    script.load(file.absolutePath)
+                } catch (error) {
+                    script.ezLog.debug "[ERROR] "+error.message
+                    script.currentBuild.result = "FAILURE"
+                }
             }
         } catch (error) {
             script.ezLog.debug "[ERROR] "+error.message
