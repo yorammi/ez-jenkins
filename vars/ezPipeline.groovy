@@ -22,7 +22,7 @@ def call(Map config) {
     }
     String agentString = any
     if (config.ezMainLabel != null) {
-        agentString "{ label \"${config.ezMainLabel}\" }"
+        agentString = "{ label \"${config.ezMainLabel}\" }"
     }
 
     pipeline {
