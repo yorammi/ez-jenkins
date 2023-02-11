@@ -4,35 +4,41 @@ def call(Map config) {
     if (config == null) {
         config = [:]
     }
-    if (config.sleep == null)
+    if (config.ezSleep == null)
     {
-        config.sleep = 0
+        config.ezSleep = 0
     }
-    if (config.quietPeriod == null)
+    if (config.ezQuietPeriod == null)
     {
-        config.quietPeriod = 5
+        config.ezQuietPeriod = 5
     }
-    if (config.numToKeepStr == null)
+    if (config.ezNumToKeepStr == null)
     {
-        config.numToKeepStr = "5"
+        config.ezNumToKeepStr = "5"
+    }
+    if (config.ezMainLabel == null)
+    {
+        config.ezNumToKeepStr = "5"
     }
 
     pipeline {
-        agent any
+        if (config.ezMainLabel == null)
+        {
+            agent any
+        }
+        else {
+            agent { label '${config.ezMainLabel}' }
+        }
         options {
             timestamps()
-            buildDiscarder(logRotator(numToKeepStr: config.numToKeepStr))
+            buildDiscarder(logRotator(numToKeepStr: config.ezNumToKeepStr))
             ansiColor('xterm')
             skipDefaultCheckout()
             disableConcurrentBuilds()
-            quietPeriod(config.quietPeriod)
+            quietPeriod(config.ezQuietPeriod)
         }
-        // parameters {
-        //     string (name: 'PRID', defaultValue: '', description:'Pull request ID')
-        //     string (name: 'PRDESTINATION', defaultValue: '', description:'Pull request destination branch')
-        // }
         stages {
-            stage ("[Pipeline setup]") {
+            stage ("[ez setup]") {
                 steps {
                     script {
                         try {
@@ -57,7 +63,7 @@ def call(Map config) {
         post {
             always {
                 script {
-                    sleep (config.sleep)
+                    sleep (config.ezSleep)
                 }
             }
         }
