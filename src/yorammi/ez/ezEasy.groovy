@@ -29,22 +29,25 @@ class ezEasy extends ezBaseJob {
                 script.stage("${stage.name}") {
                     stage.steps.each { step ->
                         script.ezLog.info "${step}"
-                        switch (step.type) {
-                        case "sh":
-                            script.sh step.args
-                            break
-                        case "echo":
-                            script.echo step.args
-                            break
-                        case "step":
-                            script.writeFile file: ".ezTempStep.groovy", text: "#!/usr/bin/env groovy\n\n${step.args}"
-                            script.sh "cat .ezTempStep.groovy"
-                            script.load(".ezTempStep.groovy")
-                            break
-                        default:
-                            echo "Invalid step type"
-                            error "Invalid step type: ${step.type}"
-                        }
+                        script.writeFile file: ".ezTempStep.groovy", text: "#!/usr/bin/env groovy\n\n${step}"
+                        script.sh "cat .ezTempStep.groovy"
+                        script.load(".ezTempStep.groovy")
+                        // switch (step.type) {
+                        // case "sh":
+                        //     script.sh step.args
+                        //     break
+                        // case "echo":
+                        //     script.echo step.args
+                        //     break
+                        // case "step":
+                        //     script.writeFile file: ".ezTempStep.groovy", text: "#!/usr/bin/env groovy\n\n${step.args}"
+                        //     script.sh "cat .ezTempStep.groovy"
+                        //     script.load(".ezTempStep.groovy")
+                        //     break
+                        // default:
+                        //     echo "Invalid step type"
+                        //     error "Invalid step type: ${step.type}"
+                        // }
                     }
                 }
             }
