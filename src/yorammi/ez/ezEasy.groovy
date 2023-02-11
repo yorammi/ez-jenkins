@@ -24,16 +24,22 @@ class ezEasy extends ezBaseJob {
             activateStage('Setup', this.&setup)
             def yaml = script.readYaml file: config.ezYamlFilePath
             def stages = yaml.stages
+            File file = File.createTempFile("temp",".groovy")
+            file.deleteOnExit()
+            def currentSteps = ""
             stages.each { stage ->
                 script.ezLog.anchor "Stage: ${stage.name}"
                 script.stage("${stage.name}") {
                     stage.steps.each { step ->
-                        script.ezLog.info "Running: ${step}"
+                        // script.ezLog.info "Running: ${step}"
+                        currentSteps+="\n"+step
                         script.writeFile file: ".ezTempStep.groovy", text: "#!/usr/bin/env groovy\n\n${step}"
-                        script.load(".ezTempStep.groovy")
+                        // script.load(".ezTempStep.groovy")
                     }
                 }
             }
+            script.writeFile file: file.absolutePath, text: "#!/usr/bin/env groovy\n${currentSteps}"
+            script.load(file.absolutePath)
         } catch (error) {
             script.ezLog.debug "[ERROR] "+error.message
             script.currentBuild.result = "FAILURE"
