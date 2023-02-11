@@ -61,7 +61,7 @@ class ezEasy extends ezBaseJob {
         File file = File.createTempFile("temp",".groovy")
         file.deleteOnExit()
         def currentSteps = ""
-        parallelBlocks[${stage.name}] = {
+        parallelBlocks["${stage.name}"] = {
             script.stage("${stage.name}") {
                 stage.steps.each { step ->
                     currentSteps+="\n"+step
