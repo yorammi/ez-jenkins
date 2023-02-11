@@ -26,7 +26,7 @@ def call(Map config) {
     }
 
     pipeline {
-        agent agentString
+        agent any
         options {
             timestamps()
             buildDiscarder(logRotator(numToKeepStr: config.ezNumToKeepStr))
