@@ -61,11 +61,11 @@ class ezEasy extends ezBaseJob {
         File file = File.createTempFile("temp",".groovy")
         file.deleteOnExit()
         def currentSteps = ""
-        // parallelBlocks[${stage.name}] = {
-        //     script.stage("${stage.name}") {
-        //         stage.steps.each { step ->
-        //             currentSteps+="\n"+step
-        //         }
+        parallelBlocks[${stage.name}] = {
+            script.stage("${stage.name}") {
+                stage.steps.each { step ->
+                    currentSteps+="\n"+step
+                }
         //         try {
         //             script.writeFile file: file.absolutePath, text: "#!/usr/bin/env groovy\n${currentSteps}"
         //             script.load(file.absolutePath)
@@ -77,7 +77,7 @@ class ezEasy extends ezBaseJob {
         //         finally {
         //         }
         //     }
-        // }
+        }
     }
 }
 
