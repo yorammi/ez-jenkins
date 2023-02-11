@@ -40,6 +40,7 @@ class ezEasy extends ezBaseJob {
                 } catch (error) {
                     script.ezLog.debug "[ERROR] "+error.message
                     script.currentBuild.result = "FAILURE"
+                    throw error
                 }
             }
         } catch (error) {
