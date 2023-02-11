@@ -47,6 +47,7 @@ class ezEasy extends ezBaseJob {
         def stages = phase.stages
         stages.each { stage ->
             yaml.stages.each { loopStage ->
+                echo "${stage}"
                 if(loopStage.name == "${stage}") {
                     activateStage(loopStage)
                 }
