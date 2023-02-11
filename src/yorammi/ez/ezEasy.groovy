@@ -51,11 +51,11 @@ class ezEasy extends ezBaseJob {
     }
 
     void activateStage(def stage) {
-            script.ezLog.anchor "Stage: ${stage}"
+            script.ezLog.anchor "Stage: ${@stage}"
             File file = File.createTempFile("temp",".groovy")
             file.deleteOnExit()
             def currentSteps = ""
-            script.stage("${stage}") {
+            script.stage("${@stage}") {
                 stage.steps.each { step ->
                     currentSteps+="\n"+step
                 }
