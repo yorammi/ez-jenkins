@@ -30,8 +30,7 @@ class ezEasy extends ezBaseJob {
                 script.stage("${stage.name}") {
                     stage.steps.each { step ->
                         script.ezLog.info "${step}"
-                        Eval.me (step)
-                        // script.ezRunStep "${step}"
+                        script.ezLog.info "${step.type}"
                     }
                 }
             }
