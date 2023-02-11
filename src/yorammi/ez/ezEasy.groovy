@@ -24,6 +24,7 @@ class ezEasy extends ezBaseJob {
         def yaml = script.readYaml file: config.ezYamlFilePath
         def phases = yaml.phases
         phases.each { phase ->
+            script.ezLog.info "${phase}"
             script.ezLog.anchor "{Phase}: ${phase.name}"
             activatePhase(phase)
         }
