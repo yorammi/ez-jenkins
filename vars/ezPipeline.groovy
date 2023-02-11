@@ -21,12 +21,12 @@ def call(Map config) {
         config.ezNumToKeepStr = "5"
     }
     String agentString = "any"
-    if (config.ezMainLabel != null)
+    if (config.ezMainLabel != null) {
         agentString "{ label '${config.ezMainLabel}' }"
     }
 
     pipeline {
-        agent any
+        agent "${agentString}"
         options {
             timestamps()
             buildDiscarder(logRotator(numToKeepStr: config.ezNumToKeepStr))
