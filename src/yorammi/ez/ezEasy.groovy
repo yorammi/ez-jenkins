@@ -53,6 +53,7 @@ class ezEasy extends ezBaseJob {
                 }
             }
         }
+        script.parallel parallelBlocks
     }
 
     void activateStage(def parallelBlocks, def stage) {
@@ -77,7 +78,6 @@ class ezEasy extends ezBaseJob {
                 }
             }
         }
-        script.parallel parallelBlocks
     }
 }
 
