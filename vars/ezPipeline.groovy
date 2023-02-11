@@ -34,10 +34,14 @@ def call(Map config) {
         stages {
             stage ("[Pipeline setup]") {
                 steps {
-                    echo ""
-                    // script {
-                    //     // checkout scm
-                    // }
+                    script {
+                        try {
+                            checkout scm
+                        }
+                        catch (error) {
+
+                        }
+                    }
                 }
             }
             stage ("[ez Flow]") {
