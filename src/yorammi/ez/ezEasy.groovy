@@ -30,12 +30,11 @@ class ezEasy extends ezBaseJob {
                 script.stage("${stage.name}") {
                     stage.steps.each { step ->
                         script.ezLog.info "${step}"
-                        script.ezLog.info "${step.type}"
                         if(step.type == 'sh') {
                             script.sh step.args
                         } 
                         else if(step.type == 'step') {
-                           step.args 
+                           { step.args } 
                         }
                     }
                 }
