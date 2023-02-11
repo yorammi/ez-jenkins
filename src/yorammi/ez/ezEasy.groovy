@@ -48,7 +48,7 @@ class ezEasy extends ezBaseJob {
         stages.each { stage ->
             yaml.stages.each { loopStage ->
                 script.echo "${stage}"
-                if(loopStage.name == "${stage}") {
+                if("${loopStage.name}" == "${stage}") {
                     activateStage(loopStage)
                 }
             }
