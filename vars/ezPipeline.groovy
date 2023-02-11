@@ -32,25 +32,17 @@ def call(Map config) {
             quietPeriod(config.ezQuietPeriod)
         }
         stages {
-            stage ("[ez setup]") {
+            stage ("[ez]") {
                 steps {
                     script {
                         try {
                             checkout scm
                         }
                         catch (error) {
-
                         }
-                    }
-                }
-            }
-            stage ("[ez Flow]") {
-                steps {
-                    script {
                         def ezPipeline = new yorammi.ez.ezEasy(this)
                         ezPipeline.config=config
                         ezPipeline.activate()
-                    }
                 }
             }
         }
