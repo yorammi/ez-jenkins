@@ -53,7 +53,7 @@ class ezEasy extends ezBaseJob {
                 }
             }
         }
-        // script.parallel parallelBlocks
+        script.parallel parallelBlocks
     }
 
     void activateStage(def parallelBlocks, def stage) {
