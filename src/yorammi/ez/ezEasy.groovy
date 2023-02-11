@@ -17,6 +17,7 @@ class ezEasy extends ezBaseJob {
         super(script)
     }
 
+    @NonCPS
     @Override
     void activateImpl() {
         try {
@@ -37,7 +38,7 @@ class ezEasy extends ezBaseJob {
                             script.echo step.args
                             break
                         case "step":
-                            step.args.sequence()
+                            step.args
                             break
                         default:
                             echo "Invalid step type"
