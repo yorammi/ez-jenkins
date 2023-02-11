@@ -51,20 +51,20 @@ class ezEasy extends ezBaseJob {
         stages.each { stage ->
             yaml.stages.each { loopStage ->
                 if(loopStage.name == stage) {
-                    activateStage(parallelBlocks, loopStage)
+                    activateStage(parallelBlocks, phase.name, loopStage)
                 }
             }
         }
         script.parallel parallelBlocks
     }
 
-    void activateStage(def parallelBlocks, def stage) {
+    void activateStage(def parallelBlocks, String phase, def stage) {
         script.ezLog.anchor "Stage: ${stage.name}"
         File file = File.createTempFile("temp",".groovy")
         file.deleteOnExit()
         def currentSteps = ""
-        parallelBlocks["${stage.name}"] = {
-            script.stage("${stage.name}") {
+        parallelBlocks["[${phase}] ${stage.name}"] = {
+            script.stage("[${phase}] ${stage.name}") {
                 stage.steps.each { step ->
                     currentSteps+="\n"+step
                 }
