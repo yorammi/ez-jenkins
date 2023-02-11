@@ -10,6 +10,7 @@ class ezEasy extends ezBaseJob {
     def buildNumber
     def deleteWorkspace = true
     def componentBranch = ''
+    def yaml
     Map config
 
     // constructor
@@ -20,19 +21,10 @@ class ezEasy extends ezBaseJob {
     @Override
     void activateImpl() {
         buildNumber = script.env.BUILD_NUMBER
-        activateStage('Setup', this.&setup)
-        def yaml = script.readYaml file: config.ezYamlFilePath
-        def phases = yaml.phases
-        phases.each { phase ->
-            script.ezLog.info "${phase}"
-            script.ezLog.anchor "{Phase}: ${phase.name}"
-            activatePhase(yaml,phase)
-        }
+        activateStage('ez flow setup', this.&ezSetup)
     }
 
-    void setup() {
-        script.ezLog.info "setup start"
-
+    void ezSetup() {
         if(config == null) 
         {
             config = [:]
@@ -41,9 +33,18 @@ class ezEasy extends ezBaseJob {
         {
             config.ezYamlFilePath = "ez.yaml"
         }
+        yaml = script.readYaml file: config.ezYamlFilePath
     }
 
-    void activatePhase(def yaml, def phase) {
+    void activateFlow() {
+        def phases = yaml.phases
+        phases.each { phase ->
+            activatePhase(phase)
+        }
+    }
+
+    void activatePhase(def phase) {
+        script.ezLog.anchor "{Phase}: ${phase.name}"
         def parallelBlocks = [:]
         def stages = phase.stages
         stages.each { stage ->
