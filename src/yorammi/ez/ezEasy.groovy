@@ -28,7 +28,6 @@ class ezEasy extends ezBaseJob {
                 script.ezLog.anchor "${stage.name}"
                 script.stage("${stage.name}") {
                     stage.steps.each { step ->
-                        script.ezLog.info "${step}"
                         script.writeFile file: ".ezTempStep.groovy", text: "#!/usr/bin/env groovy\n\n${step}"
                         script.load(".ezTempStep.groovy")
                         // switch (step.type) {
