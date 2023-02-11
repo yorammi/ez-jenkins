@@ -26,7 +26,7 @@ class ezEasy extends ezBaseJob {
         phases.each { phase ->
             script.ezLog.info "${phase}"
             script.ezLog.anchor "{Phase}: ${phase.name}"
-            activatePhase(phase)
+            activatePhase(yaml,phase)
         }
     }
 
@@ -43,10 +43,10 @@ class ezEasy extends ezBaseJob {
         }
     }
 
-    void activatePhase(def phase) {
+    void activatePhase(def yaml, def phase) {
         def stages = phase.stages
         stages.each { stage ->
-            activateStage(stage)
+            activateStage(yaml.stages[name=stage])
         }
     }
 
@@ -55,8 +55,7 @@ class ezEasy extends ezBaseJob {
             File file = File.createTempFile("temp",".groovy")
             file.deleteOnExit()
             def currentSteps = ""
-            // script.stage("${stage.name}") {
-            script.stage("1") {
+            script.stage("${stage.name}") {
                 stage.steps.each { step ->
                     currentSteps+="\n"+step
                 }
