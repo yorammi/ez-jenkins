@@ -66,16 +66,16 @@ class ezEasy extends ezBaseJob {
                 stage.steps.each { step ->
                     currentSteps+="\n"+step
                 }
-                try {
+                // try {
                     script.writeFile file: file.absolutePath, text: "#!/usr/bin/env groovy\n${currentSteps}"
                     script.load(file.absolutePath)
-                } catch (error) {
-                    script.ezLog.debug "[ERROR] "+error.message
-                    script.currentBuild.result = "FAILURE"
-                    throw error
-                }
-                finally {
-                }
+                // } catch (error) {
+                //     script.ezLog.debug "[ERROR] "+error.message
+                //     script.currentBuild.result = "FAILURE"
+                //     throw error
+                // }
+                // finally {
+                // }
             }
         }
     }
