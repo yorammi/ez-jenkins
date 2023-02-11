@@ -22,9 +22,10 @@ class ezEasy extends ezBaseJob {
         buildNumber = script.env.BUILD_NUMBER
         activateStage('Setup', this.&setup)
         def yaml = script.readYaml file: config.ezYamlFilePath
-        def stages = yaml.stages
-        stages.each { stage ->
-            activateStage(stage)
+        def stages = yaml.phases
+        phases.each { phase ->
+            script.ezLog.anchor "{Phase}: ${phase.name}"
+            activatePhase(phase)
         }
     }
 
@@ -38,6 +39,13 @@ class ezEasy extends ezBaseJob {
         if(config.ezYamlFilePath == null)
         {
             config.ezYamlFilePath = "ez.yaml"
+        }
+    }
+
+    void activatePhase(def phase) {
+        def stages = phase.stages
+        stages.each { stage ->
+            activateStage(stage)
         }
     }
 
