@@ -33,6 +33,9 @@ class ezEasy extends ezBaseJob {
                         script.ezLog.info "${step.type}"
                         if(step.type == 'sh') {
                             script.sh step.args
+                        } 
+                        else if(step.type == 'step') {
+                           step.args 
                         }
                     }
                 }
