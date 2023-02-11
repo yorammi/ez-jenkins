@@ -25,17 +25,18 @@ class ezEasy extends ezBaseJob {
             def yaml = script.readYaml file: config.ezYamlFilePath
             def stages = yaml.stages
             stages.each { stage ->
-                script.ezLog.anchor "Stage: ${stage.name}"
-                File file = File.createTempFile("temp",".groovy")
-                file.deleteOnExit()
-                def currentSteps = ""
-                script.stage("${stage.name}") {
-                    stage.steps.each { step ->
-                        currentSteps+="\n"+step
-                    }
-                }
-                script.writeFile file: file.absolutePath, text: "#!/usr/bin/env groovy\n${currentSteps}"
-                script.load(file.absolutePath)
+                activateStage(stage)
+                // script.ezLog.anchor "Stage: ${stage.name}"
+                // File file = File.createTempFile("temp",".groovy")
+                // file.deleteOnExit()
+                // def currentSteps = ""
+                // script.stage("${stage.name}") {
+                //     stage.steps.each { step ->
+                //         currentSteps+="\n"+step
+                //     }
+                // }
+                // script.writeFile file: file.absolutePath, text: "#!/usr/bin/env groovy\n${currentSteps}"
+                // script.load(file.absolutePath)
             }
         } catch (error) {
             script.ezLog.debug "[ERROR] "+error.message
@@ -56,6 +57,28 @@ class ezEasy extends ezBaseJob {
         if(config.ezYamlFilePath == null)
         {
             config.ezYamlFilePath = "ez.yaml"
+        }
+    }
+
+    void activateStage(def stage) {
+        try {
+            script.ezLog.anchor "Stage: ${stage.name}"
+            File file = File.createTempFile("temp",".groovy")
+            file.deleteOnExit()
+            def currentSteps = ""
+            script.stage("${stage.name}") {
+                stage.steps.each { step ->
+                    currentSteps+="\n"+step
+                }
+            }
+            script.writeFile file: file.absolutePath, text: "#!/usr/bin/env groovy\n${currentSteps}"
+            script.load(file.absolutePath)
+        } catch (error) {
+            script.ezLog.debug "[ERROR] "+error.message
+            script.currentBuild.result = "FAILURE"
+            throw error
+        }
+        finally {
         }
     }
 }
