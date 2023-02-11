@@ -17,8 +17,8 @@ class ezEasy extends ezBaseJob {
         super(script)
     }
 
-    @NonCPS
     @Override
+    @NonCPS
     void activateImpl() {
         try {
             buildNumber = script.env.BUILD_NUMBER
