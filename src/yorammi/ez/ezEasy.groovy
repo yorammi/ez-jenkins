@@ -38,7 +38,7 @@ class ezEasy extends ezBaseJob {
                             break
                         case "step":
                             script.writeFile file: "step.tmp", text: step.args
-                            script.sh "cat step.args"
+                            script.sh "cat step.tmp"
                             script.load("step.tmp")
                             break
                         default:
