@@ -51,6 +51,7 @@ class ezEasy extends ezBaseJob {
     }
 
     void activateStage(def stage) {
+            script.ezLog.info "xxx"
             // script.ezLog.anchor "Stage: ${stage.name}"
             File file = File.createTempFile("temp",".groovy")
             file.deleteOnExit()
