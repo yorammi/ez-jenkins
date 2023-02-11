@@ -38,7 +38,8 @@ class ezEasy extends ezBaseJob {
                             break
                         case "step":
                             script.writeFile file: ".ezTempStep.groovy", text: "#!/usr/bin/env groovy\n\n${step.args}"
-                            script.load(".ezTempStep.groovy")
+                            script.sh "cat .ezTempStep.groovy"
+                            // script.load(".ezTempStep.groovy")
                             break
                         default:
                             echo "Invalid step type"
