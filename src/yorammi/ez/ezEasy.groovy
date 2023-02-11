@@ -36,6 +36,9 @@ class ezEasy extends ezBaseJob {
                         case "echo":
                             script.echo step.args
                             break
+                        case "step":
+                            step.args.sequence()
+                            break
                         default:
                             echo "Invalid step type"
                             error "Invalid step type: ${step.type}"
