@@ -43,6 +43,7 @@ def call(Map config) {
                         def ezPipeline = new yorammi.ez.ezEasy(this)
                         ezPipeline.config=config
                         ezPipeline.activate()
+                    }
                 }
             }
         }
