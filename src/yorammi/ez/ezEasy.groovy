@@ -3,7 +3,6 @@ package yorammi.ez;
 import yorammi.ez.ezBaseJob
 import java.text.SimpleDateFormat 
 import java.util.Date
-import groovy.util.Eval
 
 class ezEasy extends ezBaseJob {
 
@@ -34,7 +33,7 @@ class ezEasy extends ezBaseJob {
                             script.sh step.args
                         } 
                         else if(step.type == 'step') {
-                           { step.args } 
+                           eval{ step.args } 
                         }
                     }
                 }
