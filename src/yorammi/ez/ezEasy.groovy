@@ -64,7 +64,7 @@ class ezEasy extends ezBaseJob {
         file.deleteOnExit()
         def currentSteps = ""
         parallelBlocks["{Phase:${phase}}:{Stage:${stage.name}}"] = {
-            script.stage("Phase:{${phase}}:{Stage:${stage.name}}") {
+            script.stage("{Phase:${phase}}:{Stage:${stage.name}}") {
                 stage.steps.each { step ->
                     currentSteps+="\n"+step
                 }
