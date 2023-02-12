@@ -34,6 +34,7 @@ class ezEasy extends ezBaseJob {
         {
             config.ezYamlFilePath = "ez.yaml"
         }
+        script.ezLog.debug("ezYamlFilePath:${config.ezYamlFilePath}")
         yaml = script.readYaml file: config.ezYamlFilePath
     }
 
