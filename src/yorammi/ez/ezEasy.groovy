@@ -18,6 +18,8 @@ class ezEasy extends ezBaseJob {
     def componentBranch = ''
     def yaml
     Map config
+    def branch = ""
+    def branchIsMandatory = false
 
     // constructor
     ezEasy(script) {
@@ -67,6 +69,15 @@ class ezEasy extends ezBaseJob {
         else {
             script.ezLog.info "No flow environment variables"
         }
+        def branch = script.env.BRANCH_NAME
+        script.ezLog.debug "branch=${branch}"
+        try {
+            if("${script.env.BRANCH_IS_PRIMARY}"=="true") {
+                branchIsMandatory=true
+            }
+        }
+        catch {}
+        script.ezLog.debug "branchIsMandatory=${branchIsMandatory}"
     }
 
     void activateFlow() {
