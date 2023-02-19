@@ -47,6 +47,8 @@ class ezEasy extends ezBaseJob {
             }
             try {
                 script.writeFile file: file.absolutePath, text: "#!/usr/bin/env groovy\n${currentEnvVars}"
+                def fileContent = script.readFile file: file.absolutePath 
+                script.ezLog.info "${fileContent}"
                 script.load(file.absolutePath)
             } catch (error) {
                 script.ezLog.debug "[ERROR] "+error.message
