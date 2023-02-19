@@ -43,7 +43,7 @@ class ezEasy extends ezBaseJob {
             file.deleteOnExit()
             envVars.each { key, value ->
                 script.ezLog.info "set ${key}=${value}"
-                currentEnvVars+="\n${key}=${value}"
+                currentEnvVars+="\ndef ${key}=${value}"
             }
             try {
                 script.writeFile file: file.absolutePath, text: "#!/usr/bin/env groovy\n${currentEnvVars}"
