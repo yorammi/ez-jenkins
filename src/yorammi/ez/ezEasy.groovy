@@ -76,7 +76,7 @@ class ezEasy extends ezBaseJob {
                 branchIsMandatory=true
             }
         }
-        catch {}
+        catch (error) {}
         script.ezLog.debug "branchIsMandatory=${branchIsMandatory}"
     }
 
