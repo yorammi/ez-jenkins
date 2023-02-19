@@ -3,6 +3,12 @@ package yorammi.ez;
 import yorammi.ez.ezBaseJob
 import java.text.SimpleDateFormat 
 import java.util.Date
+import hudson.EnvVars;
+import hudson.slaves.EnvironmentVariablesNodeProperty;
+import hudson.slaves.NodeProperty;
+import hudson.slaves.NodePropertyDescriptor;
+import hudson.util.DescribableList;
+import jenkins.model.Jenkins;
 
 class ezEasy extends ezBaseJob {
 
@@ -35,6 +41,33 @@ class ezEasy extends ezBaseJob {
             config.ezYamlFilePath = "ez.yaml"
         }
         yaml = script.readYaml file: config.ezYamlFilePath
+        if(yaml.environment != null) {
+            script.ezLog.info "Set flow environment variables"
+            def yamlEnvVars = yaml.environment
+            Jenkins instance = Jenkins.getInstance();
+        
+            DescribableList<NodeProperty<?>, NodePropertyDescriptor> globalNodeProperties = instance.getGlobalNodeProperties();
+            List<EnvironmentVariablesNodeProperty> envVarsNodePropertyList = globalNodeProperties.getAll(EnvironmentVariablesNodeProperty.class);
+        
+            EnvironmentVariablesNodeProperty newEnvVarsNodeProperty = null;
+            EnvVars envVars = null;
+        
+            if ( envVarsNodePropertyList == null || envVarsNodePropertyList.size() == 0 ) {
+                newEnvVarsNodeProperty = new hudson.slaves.EnvironmentVariablesNodeProperty();
+                globalNodeProperties.add(newEnvVarsNodeProperty);
+                envVars = newEnvVarsNodeProperty.getEnvVars();
+            } else {
+                envVars = envVarsNodePropertyList.get(0).getEnvVars();
+            }
+            yamlEnvVars.each { key, value ->
+                script.ezLog.info "set ${key}=${value}"
+                envVars.put(key, value)
+            }
+           instance.save()
+        }
+        else {
+            script.ezLog.info "No flow environment variables"
+        }
     }
 
     void activateFlow() {
