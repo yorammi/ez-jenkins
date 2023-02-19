@@ -38,8 +38,8 @@ class ezEasy extends ezBaseJob {
         if(yaml.environment != null) {
             script.ezLog.info "Set flow environment variables"
             def envVars = yaml.environment
-            envVars.each { envVar ->
-                script.ezLog.info "${envVar.get()}"
+            envVars.each { key, value ->
+                script.ezLog.info "${key}=${value}"
             }
         }
         else {
