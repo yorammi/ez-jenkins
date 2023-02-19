@@ -38,8 +38,22 @@ class ezEasy extends ezBaseJob {
         if(yaml.environment != null) {
             script.ezLog.info "Set flow environment variables"
             def envVars = yaml.environment
+            def currentEnvVars = ""
+            File file = File.createTempFile("temp",".groovy")
+            file.deleteOnExit()
             envVars.each { key, value ->
-                script.ezLog.info "${key}=${value}"
+                script.ezLog.info "set ${key}=${value}"
+                currentEnvVars+="\n${key}=${value}"
+            }
+            try {
+                script.writeFile file: file.absolutePath, text: "#!/usr/bin/env groovy\n${currentSteps}"
+                script.load(file.absolutePath)
+            } catch (error) {
+                script.ezLog.debug "[ERROR] "+error.message
+                script.currentBuild.result = "FAILURE"
+                throw error
+            }
+            finally {
             }
         }
         else {
