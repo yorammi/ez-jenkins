@@ -38,25 +38,26 @@ class ezEasy extends ezBaseJob {
         if(yaml.environment != null) {
             script.ezLog.info "Set flow environment variables"
             def envVars = yaml.environment
-            def currentEnvVars = ""
-            File file = File.createTempFile("temp",".groovy")
-            file.deleteOnExit()
+            Jenkins instance = Jenkins.getInstance();
+        
+            DescribableList<NodeProperty<?>, NodePropertyDescriptor> globalNodeProperties = instance.getGlobalNodeProperties();
+            List<EnvironmentVariablesNodeProperty> envVarsNodePropertyList = globalNodeProperties.getAll(EnvironmentVariablesNodeProperty.class);
+        
+            EnvironmentVariablesNodeProperty newEnvVarsNodeProperty = null;
+            EnvVars envVars = null;
+        
+            if ( envVarsNodePropertyList == null || envVarsNodePropertyList.size() == 0 ) {
+                newEnvVarsNodeProperty = new hudson.slaves.EnvironmentVariablesNodeProperty();
+                globalNodeProperties.add(newEnvVarsNodeProperty);
+                envVars = newEnvVarsNodeProperty.getEnvVars();
+            } else {
+                envVars = envVarsNodePropertyList.get(0).getEnvVars();
+            }
             envVars.each { key, value ->
                 script.ezLog.info "set ${key}=${value}"
-                currentEnvVars+="\n\tdef ${key}=${value}"
+                envVars.put(key, value)
             }
-            try {
-                script.writeFile file: file.absolutePath, text: "#!/usr/bin/env groovy\n\nnode{\n${currentEnvVars}\n}"
-                def fileContent = script.readFile file: file.absolutePath 
-                script.ezLog.info "${fileContent}"
-                script.load(file.absolutePath)
-            } catch (error) {
-                script.ezLog.debug "[ERROR] "+error.message
-                script.currentBuild.result = "FAILURE"
-                throw error
-            }
-            finally {
-            }
+           instance.save()
         }
         else {
             script.ezLog.info "No flow environment variables"
