@@ -37,7 +37,7 @@ class ezEasy extends ezBaseJob {
         yaml = script.readYaml file: config.ezYamlFilePath
         if(yaml.environment != null) {
             script.ezLog.info "Set flow environment variables"
-            def envVars = yaml.environment
+            def yamlEnvVars = yaml.environment
             Jenkins instance = Jenkins.getInstance();
         
             DescribableList<NodeProperty<?>, NodePropertyDescriptor> globalNodeProperties = instance.getGlobalNodeProperties();
@@ -53,7 +53,7 @@ class ezEasy extends ezBaseJob {
             } else {
                 envVars = envVarsNodePropertyList.get(0).getEnvVars();
             }
-            envVars.each { key, value ->
+            yamlEnvVars.each { key, value ->
                 script.ezLog.info "set ${key}=${value}"
                 envVars.put(key, value)
             }
