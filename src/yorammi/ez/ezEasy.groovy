@@ -46,7 +46,7 @@ class ezEasy extends ezBaseJob {
                 currentEnvVars+="\n${key}=${value}"
             }
             try {
-                script.writeFile file: file.absolutePath, text: "#!/usr/bin/env groovy\n${currentSteps}"
+                script.writeFile file: file.absolutePath, text: "#!/usr/bin/env groovy\n${currentEnvVars}"
                 script.load(file.absolutePath)
             } catch (error) {
                 script.ezLog.debug "[ERROR] "+error.message
