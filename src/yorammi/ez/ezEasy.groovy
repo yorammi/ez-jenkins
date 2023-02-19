@@ -60,7 +60,6 @@ class ezEasy extends ezBaseJob {
                 envVars = envVarsNodePropertyList.get(0).getEnvVars();
             }
             yamlEnvVars.each { key, value ->
-                script.ezLog.info "set ${key}=${value}"
                 envVars.put(key, value)
             }
            instance.save()
