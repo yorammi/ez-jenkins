@@ -35,6 +35,12 @@ class ezEasy extends ezBaseJob {
             config.ezYamlFilePath = "ez.yaml"
         }
         yaml = script.readYaml file: config.ezYamlFilePath
+        if(yaml.environment != null) {
+            script.ezLog.info "Set flow environment variables"
+        }
+        else {
+            script.ezLog.info "No flow environment variables"
+        }
     }
 
     void activateFlow() {
