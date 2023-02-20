@@ -50,6 +50,8 @@ def call(Map config) {
         post {
             always {
                 script {
+                    ezNotifications.sendSlackNotification()
+                    ezNotifications.sendEmailNotification(to:"yorammi@yorammi.com")
                     sleep (config.ezSleep)
                 }
             }
