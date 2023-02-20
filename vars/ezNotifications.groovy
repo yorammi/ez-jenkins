@@ -469,7 +469,6 @@ try
     }
     if("${config.buildStatus}" == "SUCCESS" && "${previousBuildResult}" == "SUCCESS" && !config.notifyOnSuccess)
     {
-        ezLog.debug("${config}")
         return
     }
     if("${config.buildStatus}" != "${previousBuildResult}" && "${config.buildStatus}" != "START" && "${config.buildStatus}" != "DONE" && previousBuildResult != null)
@@ -479,7 +478,7 @@ try
 
     if(config.channel == null || config.channel == "")
     {
-        config.channel = "slack_test"
+        config.channel = "general"
     }
 
     // Default values
@@ -603,6 +602,9 @@ try
 
     try
     {
+        ezLog.debug("colorCode=${colorCode}")
+        ezLog.debug(summary="${summary}")
+        ezLog.debug("channel=${config.channel}")
         slackSend (color: colorCode, message: summary, channel: "${config.channel}" )
     }
     catch (error3)
