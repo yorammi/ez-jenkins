@@ -469,6 +469,7 @@ try
     }
     if("${config.buildStatus}" == "SUCCESS" && "${previousBuildResult}" == "SUCCESS" && !config.notifyOnSuccess)
     {
+        ezLog.debug("${config}")
         return
     }
     if("${config.buildStatus}" != "${previousBuildResult}" && "${config.buildStatus}" != "START" && "${config.buildStatus}" != "DONE" && previousBuildResult != null)
@@ -602,7 +603,6 @@ try
 
     try
     {
-        ezLog.debug("${config}")
         slackSend (color: colorCode, message: summary, channel: "${config.channel}" )
     }
     catch (error3)
