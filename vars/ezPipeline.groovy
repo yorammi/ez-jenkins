@@ -58,6 +58,18 @@ def call(Map config) {
                         }
                         if(configuration.notifications.slackNotifications) {
                             // ezNotifications.sendSlackNotification(channel:configuration.notifications.slack.channel)
+                            if(configuration.notifications.slack) {
+                                if(configuration.notifications.slack.channel) {
+                                    // ezNotifications.sendSlackNotification(channel:configuration.notifications.slack.channel)
+                                    ezNotifications.sendSlackNotification(channel:configuration.notifications.slack.channel)
+                                }
+                                else{
+                                    ezNotifications.sendSlackNotification()
+                                }
+                            }
+                            else{
+                                ezNotifications.sendSlackNotification()
+                            }
                             ezNotifications.sendSlackNotification((configuration.notifications!=null&&configuration.notifications.slack!=null&&configuration.notifications.slack.channel!=null)?channel:configuration.notifications.slack.channel)
                         }
                     }
