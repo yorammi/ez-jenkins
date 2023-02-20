@@ -220,6 +220,7 @@ def sendEmailNotification(Map config) {
                 echo "config.attachmentsPattern: "+config.attachmentsPattern
             }
             else {
+ezLog.debug("${config}")
                 emailext (subject: config.subject,
                         body: summary,
                         mimeType: 'text/html',
@@ -602,9 +603,6 @@ try
 
     try
     {
-        ezLog.debug("colorCode=${colorCode}")
-        ezLog.debug(summary="${summary}")
-        ezLog.debug("channel=${config.channel}")
         slackSend (color: colorCode, message: summary, channel: "${config.channel}" )
     }
     catch (error3)
