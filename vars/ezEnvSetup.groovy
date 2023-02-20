@@ -5,7 +5,7 @@ def initEnv(Map config=null) {
         config = [:]
     }
     if (config.deleteWorkspace == null) {
-        config.deleteWorkspace = true
+        config.deleteWorkspace = false
     }
 
     if(config.deleteWorkspace)

@@ -10,6 +10,7 @@ former name: yajyl - Yet Another Jenkins Yaml-based-CI/CD Library
 Plugins that must be installed:
 - ansiColor
 - pipeline utility steps
+- build-user-vars-plugin
 
 ## ez - how to use it inside your GIT repository?
 
