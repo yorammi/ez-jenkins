@@ -124,7 +124,7 @@ def sendEmailNotification(Map config) {
         // Default values
         def colorName = 'RED'
         def colorCode = '#f9bdbd'
-        def icon = ':large_red_circle: '
+        def icon = ':red_circle: '
 
         if (config.buildStatus == 'SUCCESS')
         {
@@ -136,7 +136,7 @@ def sendEmailNotification(Map config) {
         {
             color = 'RED'
             colorCode = '#f9bdbd'
-            icon = ':large_red_circle: '
+            icon = ':red_circle: '
         }
         else if (config.buildStatus == 'ABORTED')
         {
@@ -487,7 +487,7 @@ try
     // Default values
     def colorName = 'RED'
     def colorCode = '#FF0000'
-    def icon = ':large_red_circle: '
+    def icon = ':red_circle: '
 
     if (config.buildStatus == 'SUCCESS')
     {
@@ -499,7 +499,7 @@ try
     {
         color = 'RED'
         colorCode = '#FF0000'
-        icon = ':large_red_circle: '
+        icon = ':red_circle: '
     }
     else if (config.buildStatus == 'ABORTED')
     {
@@ -529,7 +529,7 @@ try
     {
         color = 'PINK'
         colorCode = '#FFCCCC'
-        icon = ':large_red_circle: '
+        icon = ':red_circle: '
     }
 
     def summary = "${icon}*${config.buildStatus}*${prevBuildMessage}"
