@@ -443,7 +443,7 @@ try
     }
     if (config.notifyOnFixed == null)
     {
-        config.notifyOnSuccess = false
+        config.notifyOnFixed = false
     }
     if (config.hideJobName == null)
     {
