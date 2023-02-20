@@ -72,14 +72,16 @@ class ezEasy extends ezBaseJob {
         else {
             script.ezLog.info "No flow environment variables"
         }
-        def branch = script.env.BRANCH_NAME
-        script.currentBuild.displayName += " {branch:${branch}}"
-        try {
-            if("${script.env.BRANCH_IS_PRIMARY}"=="true") {
-                branchIsMandatory=true
+        if(script.env.BRANCH_NAME!=null) {
+            def branch = script.env.BRANCH_NAME
+            script.currentBuild.displayName += " {branch:${branch}}"
+            try {
+                if("${script.env.BRANCH_IS_PRIMARY}"=="true") {
+                    branchIsMandatory=true
+                }
             }
+            catch (error) {}
         }
-        catch (error) {}
     }
 
     void activateFlow() {
