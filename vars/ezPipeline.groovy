@@ -58,7 +58,7 @@ def call(Map config) {
                         }
                         if(configuration.notifications.slackNotifications) {
                             // ezNotifications.sendSlackNotification(channel:ezPipeline.yaml.configuration.notifications.slack.channel)
-                            ezNotifications.sendSlackNotification((configuration.notifications!=null&&configuration.notifications.slack!=null&&configuration.notifications.slack.channel)?channel:configuration.notifications.slack.channel)
+                            ezNotifications.sendSlackNotification((configuration.notifications!=null&&configuration.notifications.slack!=null)?channel:configuration.notifications.slack.channel)
                         }
                     }
                     sleep (config.ezSleep)
