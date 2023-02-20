@@ -1,6 +1,7 @@
 import yorammi.ez.ezEasy
 
 def call(Map config) {
+    def ezPipeline = null
     if (config == null) {
         config = [:]
     }
@@ -40,7 +41,7 @@ def call(Map config) {
                         }
                         catch (error) {
                         }
-                        def ezPipeline = new yorammi.ez.ezEasy(this)
+                        ezPipeline = new yorammi.ez.ezEasy(this)
                         ezPipeline.config=config
                         ezPipeline.activate()
                     }
@@ -50,11 +51,11 @@ def call(Map config) {
         post {
             always {
                 script {
-                    if(yaml.configuration.notifications.slackNotifications) {
+                    if(ezPipeline.yaml.configuration.notifications.slackNotifications) {
                         ezNotifications.notifications.sendSlackNotification()
                     }
-                    if(yaml.configuration.emailNotifications) {
-                        ezNotifications.sendEmailNotification(to:"yorammi@yorammi.com", channel:(yaml.configuration.notifications.slack.channel?yaml.configuration.notifications.slack.channel:"general"))
+                    if(ezPipeline.yaml.configuration.emailNotifications) {
+                        ezNotifications.sendEmailNotification(to:"yorammi@yorammi.com", channel:(ezPipeline.yaml.configuration.notifications.slack.channel?ezPipeline.yaml.configuration.notifications.slack.channel:"general"))
                     }
                     sleep (config.ezSleep)
                 }
