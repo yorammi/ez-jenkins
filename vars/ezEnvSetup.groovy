@@ -10,7 +10,7 @@ def initEnv(Map config=null) {
 
     if(config.deleteWorkspace)
     {
-        radcomCommon.deleteWorkspace()
+        ezUtils.deleteWorkspace()
     }
     initUserEnvVars()
     if(ezUtils.isBuildStartedByUser() || env.BUILD_USER != '') {
