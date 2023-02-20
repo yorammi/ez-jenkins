@@ -52,7 +52,7 @@ def call(Map config) {
             always {
                 script {
                     if(ezPipeline.yaml.configuration.notifications.slackNotifications) {
-                        ezNotifications.notifications.sendSlackNotification()
+                        ezNotifications.sendSlackNotification()
                     }
                     if(ezPipeline.yaml.configuration.emailNotifications) {
                         ezNotifications.sendEmailNotification(to:"yorammi@yorammi.com", channel:(ezPipeline.yaml.configuration.notifications.slack.channel?ezPipeline.yaml.configuration.notifications.slack.channel:"general"))
