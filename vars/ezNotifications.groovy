@@ -424,7 +424,7 @@ try
         config.useDirectMessage = true
     }
     if (config.channel == null) {
-        config.channel = '#jenkins-notifications'
+        config.channel = '#general'
     }
     if (!config.channel.startsWith("#") && !config.channel.startsWith("@")) {
         config.channel = '#'+config.channel
