@@ -50,8 +50,12 @@ def call(Map config) {
         post {
             always {
                 script {
-                    ezNotifications.sendSlackNotification()
-                    ezNotifications.sendEmailNotification(to:"yorammi@yorammi.com")
+                    if(yaml.configuration.notifications.slackNotifications) {
+                        ezNotifications.notifications.sendSlackNotification()
+                    }
+                    if(yaml.configuration.emailNotifications) {
+                        ezNotifications.sendEmailNotification(to:"yorammi@yorammi.com", channel:(yaml.configuration.notifications.slack.channel?yaml.configuration.notifications.slack.channel:"general"))
+                    }
                     sleep (config.ezSleep)
                 }
             }
