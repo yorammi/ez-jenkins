@@ -51,10 +51,10 @@ def call(Map config) {
         post {
             always {
                 script {
-                    if(ezPipeline.yaml.configuration.emailNotifications) {
-                        ezNotifications.sendEmailNotification(to:"yorammi@yorammi.com", channel:(ezPipeline.yaml.configuration.notifications.slack.channel?ezPipeline.yaml.configuration.notifications.slack.channel:"general"))
+                    if(ezPipeline.yaml.configuration.notifications.emailNotifications) {
+                        ezNotifications.sendEmailNotification(to:"yorammi@yorammi.com")
                     }
-                    if(ezPipeline.yaml.configuration.notifications.slackNotifications) {
+                    if(ezPipeline.yaml.configuration.notifications.slackNotifications, channel:(ezPipeline.yaml.configuration.notifications.slack.channel?ezPipeline.yaml.configuration.notifications.slack.channel:"general")) {
                         ezNotifications.sendSlackNotification()
                     }
                     sleep (config.ezSleep)
