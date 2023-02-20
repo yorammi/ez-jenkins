@@ -54,8 +54,8 @@ def call(Map config) {
                     if(ezPipeline.yaml.configuration.notifications.emailNotifications) {
                         ezNotifications.sendEmailNotification(to:"yorammi@yorammi.com")
                     }
-                    if(ezPipeline.yaml.configuration.notifications.slackNotifications, channel:(ezPipeline.yaml.configuration.notifications.slack.channel?ezPipeline.yaml.configuration.notifications.slack.channel:"general")) {
-                        ezNotifications.sendSlackNotification()
+                    if(ezPipeline.yaml.configuration.notifications.slackNotifications) {
+                        ezNotifications.sendSlackNotification(channel:(ezPipeline.yaml.configuration.notifications.slack.channel?ezPipeline.yaml.configuration.notifications.slack.channel:"general"))
                     }
                     sleep (config.ezSleep)
                 }
