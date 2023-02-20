@@ -124,31 +124,31 @@ def sendEmailNotification(Map config) {
         // Default values
         def colorName = 'RED'
         def colorCode = '#f9bdbd'
-        def icon = ':jenkins_red: '
+        def icon = 'large_red_circle: '
 
         if (config.buildStatus == 'SUCCESS')
         {
             color = 'GREEN'
             colorCode = '#dae382'
-            icon = ':jenkins_blue: '
+            icon = ':large_green_circle: '
         }
         else if (config.buildStatus == 'FAILURE')
         {
             color = 'RED'
             colorCode = '#f9bdbd'
-            icon = ':jenkins_red: '
+            icon = ':large_red_circle: '
         }
         else if (config.buildStatus == 'ABORTED')
         {
             color = 'GRAY'
             colorCode = '#AAAAAA'
-            icon = ':jenkins_gray: '
+            icon = 'white_circle: '
         }
         else if (config.buildStatus == 'UNSTABLE')
         {
             color = 'YELLOW'
             colorCode = '#FFFACD'
-            icon = ':jenkins_yellow: '
+            icon = ':large_yellow_circle: '
         }
         else if (config.buildStatus == 'START')
         {
@@ -542,7 +542,7 @@ try
         }
     }
     summary+="\n>>>:book: <${env.BUILD_URL}| ${currentBuild.displayName}>"
-    summary+=" <${env.BUILD_URL}consoleFull|:jenkins_terminal:>"
+    summary+=" <${env.BUILD_URL}consoleFull|:computer:>"
     try
     {
         if(currentBuild.description != null && "${currentBuild.description}" != "" && config.showDescription)
@@ -573,7 +573,7 @@ try
     if(env.TESTS_SUMMARY!=null && "${env.TESTS_SUMMARY}" != "")
     {
         summary+="\n`${env.TESTS_SUMMARY}`"
-        summary+="\n:jenkins_clipboard: <${env.BUILD_URL}testReport|*JUnit* tests report>"
+        summary+="\n:clipboard: <${env.BUILD_URL}testReport|*JUnit* tests report>"
     }
 
     if(config.additionalMessageText!=null && config.additionalMessageText != "")
