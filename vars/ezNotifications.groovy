@@ -70,7 +70,7 @@ def sendEmailNotification(Map config) {
         }
         catch (error)
         {
-            echo "[ERROR] "+error.message
+            ezLog.error "[ERROR] "+error.message
         }
 
 
@@ -226,17 +226,16 @@ def sendEmailNotification(Map config) {
                         from: config.from,
                         replyTo: config.replyTo,
                         to: config.to)
-                echo "config.attachmentsPattern: null"
             }
         }
         catch (error3)
         {
-            echo "[ERROR] "+error3.message
+            ezLog.error "[ERROR] "+error3.message
         }
     }
     catch(error)
     {
-        echo "[ERROR] "+error.message
+        ezLog.error "[ERROR] "+error.message
     }
 }
 
@@ -277,7 +276,7 @@ def sendTeamsNotification(Map config) {
         }
         catch (error)
         {
-            echo "[ERROR] "+error.message
+            ezLog.error "[ERROR] "+error.message
         }
 
         if(config.buildStatus == null || config.buildStatus == "")
@@ -401,7 +400,7 @@ def sendTeamsNotification(Map config) {
     }
     catch(error)
     {
-        echo "[ERROR] "+error.message
+        ezLog.error "[ERROR] "+error.message
     }
 }
 
@@ -462,7 +461,7 @@ try
     }
     catch (error)
     {
-        echo "[ERROR] "+error.message
+        ezLog.error "[ERROR] "+error.message
     }
     if(config.buildStatus == null || config.buildStatus == "")
     {
@@ -553,7 +552,7 @@ try
     }
     catch (error)
     {
-        echo "[ERROR] "+error.message
+        ezLog.error "[ERROR] "+error.message
     }
     summary+="\n"
     def nodeName = env.NODE_NAME
@@ -608,12 +607,12 @@ try
     }
     catch (error3)
     {
-        echo "[ERROR] "+error3.message
+        ezLog.error "[ERROR] "+error3.message
     }
 }
 catch(error)
         {
-            echo "[ERROR] "+error.message
+            ezLog.error "[ERROR] "+error.message
         }
 }
 
