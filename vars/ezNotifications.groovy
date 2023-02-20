@@ -220,7 +220,9 @@ def sendEmailNotification(Map config) {
                 echo "config.attachmentsPattern: "+config.attachmentsPattern
             }
             else {
-ezLog.debug("${config}")
+ezLog.debug("to=${config.to}")
+ezLog.debug("subject=${config.subject}")
+ezLog.debug("summary=${summary}")
                 emailext (subject: config.subject,
                         body: summary,
                         mimeType: 'text/html',
