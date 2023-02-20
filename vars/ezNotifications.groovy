@@ -63,7 +63,6 @@ def sendEmailNotification(Map config) {
             config.hideElapsedTime = false
         }
 
-        ezLog.debug "${config}"
         def previousBuildResult = null
         try
         {
@@ -246,6 +245,7 @@ def sendEmailNotification(Map config) {
 def sendTeamsNotification(Map config) {
     try
     {
+        ezLog.anchor "sendTeamsNotification"
         string prevBuildMessage = ""
         def displayedStatus = ""
 
@@ -411,6 +411,7 @@ def sendTeamsNotification(Map config) {
 def sendSlackNotification(Map config) {
 try
 {
+    ezLog.anchor "sendSlackNotification"
     string prevBuildMessage = ""
     if (config == null) {
         config = [:]
@@ -602,6 +603,7 @@ try
 
     try
     {
+        ezLog.debug("${config}")
         slackSend (color: colorCode, message: summary, channel: "${config.channel}" )
     }
     catch (error3)
