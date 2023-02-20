@@ -484,31 +484,31 @@ try
     // Default values
     def colorName = 'RED'
     def colorCode = '#FF0000'
-    def icon = ':jenkins_red: '
+    def icon = ':large_red_circle: '
 
     if (config.buildStatus == 'SUCCESS')
     {
         color = 'GREEN'
         colorCode = '#00CF00'
-        icon = ':jenkins_blue: '
+        icon = ':large_green_circle: '
     }
     else if (config.buildStatus == 'FAILURE')
     {
         color = 'RED'
         colorCode = '#FF0000'
-        icon = ':jenkins_red: '
+        icon = ':large_red_circle: '
     }
     else if (config.buildStatus == 'ABORTED')
     {
         color = 'GRAY'
         colorCode = '#AAAAAA'
-        icon = ':jenkins_gray: '
+        icon = ':white_circle: '
     }
     else if (config.buildStatus == 'UNSTABLE')
     {
         color = 'YELLOW'
         colorCode = '#FFFACD'
-        icon = ':jenkins_yellow: '
+        icon = ':large_yellow_circle: '
     }
     else if (config.buildStatus == 'START')
     {
@@ -526,7 +526,7 @@ try
     {
         color = 'PINK'
         colorCode = '#FFCCCC'
-        icon = ':jenkins_red: '
+        icon = ':large_red_circle: '
     }
 
     def summary = "${icon}*${config.buildStatus}*${prevBuildMessage}"
