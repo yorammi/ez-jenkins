@@ -5,6 +5,7 @@
 def sendEmailNotification(Map config) {
     try
     {
+        ezLog.anchor "sendEmailNotification"
         string prevBuildMessage = ""
         def displayedSubject = ""
 
@@ -62,6 +63,7 @@ def sendEmailNotification(Map config) {
             config.hideElapsedTime = false
         }
 
+        ezLog.debug "${config}"
         def previousBuildResult = null
         try
         {
