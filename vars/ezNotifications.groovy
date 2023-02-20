@@ -124,7 +124,7 @@ def sendEmailNotification(Map config) {
         // Default values
         def colorName = 'RED'
         def colorCode = '#f9bdbd'
-        def icon = 'large_red_circle: '
+        def icon = ':large_red_circle: '
 
         if (config.buildStatus == 'SUCCESS')
         {
