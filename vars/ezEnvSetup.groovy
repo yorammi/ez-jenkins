@@ -14,9 +14,9 @@ def initEnv(Map config=null) {
     }
     initUserEnvVars()
     if(ezUtils.isBuildStartedByUser() || env.BUILD_USER != '') {
-        if(env.BUILD_USER != "admin") {
-            currentBuild.displayName += " {${env.BUILD_USER}}"
-        }
+        // if(env.BUILD_USER != "admin") {
+            currentBuild.displayName += " {user:${env.BUILD_USER}}"
+        // }
     }
 }
 
