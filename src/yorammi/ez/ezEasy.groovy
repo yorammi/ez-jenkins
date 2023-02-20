@@ -38,6 +38,9 @@ class ezEasy extends ezBaseJob {
         {
             config = [:]
         }
+
+        script.ezEnvSetup.initEnv()
+
         if(config.ezYamlFilePath == null)
         {
             config.ezYamlFilePath = "ez.yaml"
