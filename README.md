@@ -11,6 +11,7 @@ Plugins that must be installed:
 - ansiColor
 - pipeline utility steps
 - build-user-vars-plugin
+- slack notification
 
 ## ez - how to use it inside your GIT repository?
 
