@@ -41,7 +41,7 @@ def call(Map config) {
             quietPeriod(config.ezQuietPeriod)
         }
         stages {
-            stage ("[ez]") {
+            stage ("[EZ]") {
                 steps {
                     script {
                         try {
