@@ -207,7 +207,8 @@ def sendEmailNotification(Map config) {
             summary+="<BR/>${config.additionalMessageText}"
         }
         if(!config.disablePoweredByMessage) {
-            summary += "<P><font size=1>powered by yorammi/ez shared library</font>"
+        summary+="\n <https://github.com/yorammi/ez|powered by yorammi/ez>"
+            summary += "<P><font size=1><A HREF='https://github.com/yorammi/ez'>powered by yorammi/ez</A></font>"
         }
 
         if(config.alternateSubject != '') {
@@ -435,7 +436,7 @@ try
         }
     }
     if(!config.disablePoweredByMessage) {
-        summary+="\n> powered by yorammi/ez shared library"
+        summary+="\n <https://github.com/yorammi/ez|powered by yorammi/ez>"
     }
 
     try
