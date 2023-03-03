@@ -73,7 +73,7 @@ def call(Map config) {
                             }
                         }
                         else {
-                                ezLog.info("not sending slack message")
+                             ezLog.info("not sending slack message")
                         }
                     }
                     sleep (config.ezSleep)
