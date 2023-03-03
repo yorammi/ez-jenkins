@@ -51,25 +51,36 @@ def call(Map config) {
         post {
             always {
                 script {
+                    def notifyOnSuccess = false
                     def configuration = ezPipeline.yaml.configuration
                     if(configuration && configuration.notifications) {
+                        if(configuration.notifications.successNotificationsOnMainBranches) {
+                            if(configuration.notifications.mainBranches)
+                            {
+                                for(String item: configuration.notifications.mainBranches) {
+                                    if(item == env.BRANCH_NAME) {
+                                        notifyOnSuccess = true 
+                                    }
+                                }
+                            }
+                        }
                         if(configuration.notifications.emailNotifications) {
-                            ezNotifications.sendEmailNotification(to:"yorammi@yorammi.com")
+                            ezNotifications.sendEmailNotification(to:"yorammi@yorammi.com",notifyOnSuccess:notifyOnSuccess)
                         }
                         if(configuration.notifications.slackNotifications) {
                             if(configuration.notifications.slack) {
                                 if(configuration.notifications.slack.channel) {
                                     ezLog.info("sending Slack message to channel ${configuration.notifications.slack.channel}")
-                                    ezNotifications.sendSlackNotification(channel:configuration.notifications.slack.channel)
+                                    ezNotifications.sendSlackNotification(channel:configuration.notifications.slack.channel,notifyOnSuccess:notifyOnSuccess)
                                 }
                                 else{
                                     ezLog.info("sending Slack message to default channel")
-                                    ezNotifications.sendSlackNotification()
+                                    ezNotifications.sendSlackNotification(notifyOnSuccess:notifyOnSuccess)
                                 }
                             }
                             else{
-                                ezLog.info("sending slack message to default channel")
-                                ezNotifications.sendSlackNotification()
+                                ezLog.info("sending Slack message to default channel")
+                                ezNotifications.sendSlackNotification(notifyOnSuccess:notifyOnSuccess)
                             }
                         }
                         else {
