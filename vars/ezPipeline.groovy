@@ -59,15 +59,21 @@ def call(Map config) {
                         if(configuration.notifications.slackNotifications) {
                             if(configuration.notifications.slack) {
                                 if(configuration.notifications.slack.channel) {
+                                    ezLog.info("sending Slack message to channel ${configuration.notifications.slack.channel}")
                                     ezNotifications.sendSlackNotification(channel:configuration.notifications.slack.channel)
                                 }
                                 else{
+                                    ezLog.info("sending Slack message to default channel")
                                     ezNotifications.sendSlackNotification()
                                 }
                             }
                             else{
+                                ezLog.info("sending slack message to default channel")
                                 ezNotifications.sendSlackNotification()
                             }
+                        }
+                        else {
+                                ezLog.info("not sending slack message")
                         }
                     }
                     sleep (config.ezSleep)
