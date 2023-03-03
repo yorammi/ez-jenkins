@@ -436,7 +436,7 @@ try
         }
     }
     if(!config.disablePoweredByMessage) {
-        summary+="\n\n <font size=1><https://github.com/yorammi/ez|powered by yorammi/ez></font>"
+        summary+="\n\n <https://github.com/yorammi/ez|yorammi/ez>"
     }
 
     try
