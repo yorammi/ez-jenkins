@@ -202,7 +202,7 @@ def sendEmailNotification(Map config) {
         }
         summary+="<TR><TH align=left>Build duration</TH><TD>${elapsedTime}</TD></TR>"
         summary += "</table>"
-        if(!disablePoweredByMessage) {
+        if(!config.disablePoweredByMessage) {
             summary += "<P><font size=1>powered by yorammi/ez shared library</font>"
         }
         if(config.additionalMessageText!=null && config.additionalMessageText != "")
