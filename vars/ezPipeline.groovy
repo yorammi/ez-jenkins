@@ -61,6 +61,9 @@ def call(Map config) {
                 script {
                     def configuration = ezPipeline.yaml.configuration
                     if(configuration && configuration.notifications) {
+                        if(configuration.notifications.disablePoweredByMessage) {
+                            config.disablePoweredByMessage = true
+                        }
                         if(configuration.notifications.successNotificationsOnMainBranches) {
                             if(configuration.notifications.mainBranches)
                             {
@@ -72,17 +75,17 @@ def call(Map config) {
                             }
                         }
                         if(configuration.notifications.emailNotifications) {
-                            ezNotifications.sendEmailNotification(to:"yorammi@yorammi.com",notifyOnSuccess:config.notifyOnSuccess)
+                            ezNotifications.sendEmailNotification(to:"yorammi@yorammi.com",notifyOnSuccess:config.notifyOnSuccess,disablePoweredByMessage:config.disablePoweredByMessage)
                         }
                         if(configuration.notifications.slackNotifications) {
                             if(configuration.notifications.slack) {
                                 if(configuration.notifications.slack.channel) {
                                     ezLog.info("sending Slack message to channel ${configuration.notifications.slack.channel}")
-                                    ezNotifications.sendSlackNotification(channel:configuration.notifications.slack.channel,notifyOnSuccess:config.notifyOnSuccess)
+                                    ezNotifications.sendSlackNotification(channel:configuration.notifications.slack.channel,disablePoweredByMessage:config.disablePoweredByMessage)
                                 }
                                 else{
                                     ezLog.info("sending Slack message to default channel")
-                                    ezNotifications.sendSlackNotification(notifyOnSuccess:config.notifyOnSuccess)
+                                    ezNotifications.sendSlackNotification(notifyOnSuccess:config.notifyOnSuccess,disablePoweredByMessage:config.disablePoweredByMessage)
                                 }
                             }
                             else{
