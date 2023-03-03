@@ -58,6 +58,10 @@ def sendEmailNotification(Map config) {
         {
             config.hideJobName = false
         }
+        if (config.disablePoweredByMessage == null)
+        {
+            config.disablePoweredByMessage = false
+        }
         if (config.hideElapsedTime == null)
         {
             config.hideElapsedTime = false
@@ -198,6 +202,8 @@ def sendEmailNotification(Map config) {
         }
         summary+="<TR><TH align=left>Build duration</TH><TD>${elapsedTime}</TD></TR>"
         summary += "</table>"
+        if(!disablePoweredByMessage) {
+        summary += "<P><font size=1>powered by yorammi/ez shared library</font>"
         if(config.additionalMessageText!=null && config.additionalMessageText != "")
         {
             summary+="<BR/>${config.additionalMessageText}"
