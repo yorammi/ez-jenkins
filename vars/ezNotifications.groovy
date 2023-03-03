@@ -202,12 +202,12 @@ def sendEmailNotification(Map config) {
         }
         summary+="<TR><TH align=left>Build duration</TH><TD>${elapsedTime}</TD></TR>"
         summary += "</table>"
-        if(!config.disablePoweredByMessage) {
-            summary += "<P><font size=1>powered by yorammi/ez shared library</font>"
-        }
         if(config.additionalMessageText!=null && config.additionalMessageText != "")
         {
             summary+="<BR/>${config.additionalMessageText}"
+        }
+        if(!config.disablePoweredByMessage) {
+            summary += "<P><font size=1>powered by yorammi/ez shared library</font>"
         }
 
         if(config.alternateSubject != '') {
@@ -245,172 +245,6 @@ def sendEmailNotification(Map config) {
         ezLog.error "[ERROR] "+error.message
     }
 }
-
-// TEAMS
-
-def sendTeamsNotification(Map config) {
-    try
-    {
-        ezLog.anchor "sendTeamsNotification"
-        string prevBuildMessage = ""
-        def displayedStatus = ""
-
-        if (config == null) {
-            config = [:]
-        }
-
-        if (config.message == null) {
-            config.message = ''
-        }
-
-        if (config.to == null) {
-            config.to = 'test'
-        }
-
-        if (config.notifyOnSuccess == null)
-        {
-            config.notifyOnSuccess = false
-        }
-        if (config.notifyOnFixed == null)
-        {
-            config.notifyOnFixed = false
-        }
-
-        def previousBuildResult = null
-        try
-        {
-            previousBuildResult=currentBuild.rawBuild.getPreviousBuild()?.getResult()
-        }
-        catch (error)
-        {
-            ezLog.error "[ERROR] "+error.message
-        }
-
-        if(config.buildStatus == null || config.buildStatus == "")
-        {
-            config.buildStatus = currentBuild.currentResult
-        }
-
-        if("${config.buildStatus}" == "SUCCESS" && ("${previousBuildResult}" == "SUCCESS" || previousBuildResult==null) && !config.notifyOnSuccess)
-        {
-            return
-        }
-        if("${config.buildStatus}" != "${previousBuildResult}" && "${config.buildStatus}" != "START" && "${config.buildStatus}" != "DONE" && previousBuildResult != null)
-        {
-            if("${config.buildStatus}" == "SUCCESS")
-            {
-                displayedStatus = "FIXED"
-            }
-            else {
-                if("${config.buildStatus}" == "FAILURE")
-                {
-                    if("${previousBuildResult}" != "SUCCESS")
-                    {
-                        displayedStatus = "STILL FAILING"
-                    }
-                    else {
-                        displayedStatus = "FAILED"
-                    }
-                }
-                else {
-                    if("${config.buildStatus}" == "UNSTABLE")
-                    {
-                        if("${config.previousBuildResult}" == "UNSTABLE")
-                        {
-                            displayedStatus = "STILL UNSTABLE"
-                        }
-                        else {
-                            displayedStatus = "UNSTABLE"
-                        }
-                    }
-                    else {
-                        displayedStatus = "${config.buildStatus}"
-                    }
-                }
-            }
-        }
-        else {
-            displayedStatus = "${config.buildStatus}"
-        }
-
-        // Default values
-        def colorName = 'RED'
-        def colorCode = '#f9bdbd'
-
-        if (config.buildStatus == 'SUCCESS')
-        {
-            color = 'GREEN'
-            colorCode = '#dae382'
-        }
-        else if (config.buildStatus == 'FAILURE')
-        {
-            color = 'RED'
-            colorCode = '#f9bdbd'
-        }
-        else if (config.buildStatus == 'ABORTED')
-        {
-            color = 'GRAY'
-            colorCode = '#AAAAAA'
-        }
-        else if (config.buildStatus == 'UNSTABLE')
-        {
-            color = 'YELLOW'
-            colorCode = '#FFFACD'
-        }
-        else if (config.buildStatus == 'START')
-        {
-            color = 'LIGHTGREEN'
-            colorCode = '#7CFC00'
-        }
-        else if (config.buildStatus == 'DONE')
-        {
-            color = 'LIGHTGREEN'
-            colorCode = '#7CFC00'
-        }
-        else
-        {
-            color = 'PINK'
-            colorCode = '#FFCCCC'
-        }
-
-        def JOB_FORMATTED_NAME=env.JOB_NAME.replace("%2F","/")
-        def summary = "<body bgcolor='"+colorCode+"'>"
-        summary += "<H3><U>Jenkins build information</U></H3>"
-        summary += "<table border=1>"
-        if (!config.hideJobName)
-        {
-            if(config.alternateJobTitle == null || config.alternateJobTitle == "")
-            {
-                summary+="<TR><TH align=left>Job</TH><TD>${JOB_FORMATTED_NAME}</TD></TR>"
-            }
-            else
-            {
-                summary+="<TR><TH align=left>Job</TH><TD>${config.alternateJobTitle}</TD></TR>"
-                summary+="<P>[Job] ${config.alternateJobTitle}"
-            }
-        }
-        def elapsedTime = currentBuild.durationString
-        elapsedTime = elapsedTime.replace(" and counting","")
-
-        summary+="<TR><TH align=left>Build</TH><TD><A HREF='${env.BUILD_URL}'>${currentBuild.displayName}</A><BR/><strong><A HREF='${env.BUILD_URL}console'>Link to console-log</A></strong></TD></TR>"
-        if(currentBuild.description!=null && currentBuild.description!="") {
-            summary+="<TR><TH align=left>Details</TH><TD><strong>${currentBuild.description}</A></strong></TD></TR>"
-        }
-        summary+="<TR><TH align=left>Status</TH><TD bgcolor=${colorCode}><strong>${config.buildStatus}${prevBuildMessage}</strong></TD></TR>"
-        summary+="<TR><TH align=left>Build duration</TH><TD>${elapsedTime}</TD></TR>"
-        summary += "</table>"
-        if(config.additionalMessageText!=null && config.additionalMessageText != "")
-        {
-            summary+="<BR/>${config.additionalMessageText}"
-        }
-
-    }
-    catch(error)
-    {
-        ezLog.error "[ERROR] "+error.message
-    }
-}
-
 
 // SLACK
 
@@ -450,6 +284,10 @@ try
     if (config.hideJobName == null)
     {
         config.hideJobName = false
+    }
+    if (config.disablePoweredByMessage == null)
+    {
+        config.disablePoweredByMessage = false
     }
     if (config.hideElapsedTime == null)
     {
@@ -595,6 +433,9 @@ try
                 }
             }
         }
+    }
+    if(!config.disablePoweredByMessage) {
+        summary+="\n> powered by yorammi/ez shared library"
     }
 
     try
