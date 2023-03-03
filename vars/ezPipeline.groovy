@@ -70,7 +70,7 @@ def call(Map config) {
                             else{
                                 ezNotifications.sendSlackNotification()
                             }
-                            ezNotifications.sendSlackNotification((configuration.notifications!=null&&configuration.notifications.slack!=null&&configuration.notifications.slack.channel!=null)?channel:configuration.notifications.slack.channel)
+//                            ezNotifications.sendSlackNotification((configuration.notifications!=null&&configuration.notifications.slack!=null&&configuration.notifications.slack.channel!=null)?channel:configuration.notifications.slack.channel)
                         }
                     }
                     sleep (config.ezSleep)
