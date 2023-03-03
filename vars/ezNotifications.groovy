@@ -423,15 +423,20 @@ try
     {
         config.useDirectMessage = true
     }
-    if (config.channel == null) {
-        config.channel = '#general'
+    if(config.channel == null)
+    {
+        config.channel = ""
     }
-    if (!config.channel.startsWith("#") && !config.channel.startsWith("@")) {
-        config.channel = '#'+config.channel
-    }
-    if(env.BUILD_USER_SLACK != null && env.BUILD_USER_SLACK != '' && env.BUILD_USER_SLACK != '@' && config.useDirectMessage) {
-        config.channel = env.BUILD_USER_SLACK
-    }
+
+//     if (config.channel == null) {
+//         config.channel = '#general'
+//     }
+//     if (!config.channel.startsWith("#") && !config.channel.startsWith("@")) {
+//         config.channel = '#'+config.channel
+//     }
+//     if(env.BUILD_USER_SLACK != null && env.BUILD_USER_SLACK != '' && env.BUILD_USER_SLACK != '@' && config.useDirectMessage) {
+//         config.channel = env.BUILD_USER_SLACK
+//     }
 
     if (config.additionalMessageText == null)
     {
@@ -474,11 +479,6 @@ try
     if("${config.buildStatus}" != "${previousBuildResult}" && "${config.buildStatus}" != "START" && "${config.buildStatus}" != "DONE" && previousBuildResult != null)
     {
         prevBuildMessage = " (was: ${previousBuildResult})"
-    }
-
-    if(config.channel == null || config.channel == "")
-    {
-        config.channel = "general"
     }
 
     // Default values
