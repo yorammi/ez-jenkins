@@ -436,7 +436,7 @@ try
         }
     }
     if(!config.disablePoweredByMessage) {
-        summary+="\n\n <https://github.com/yorammi/ez|yorammi/ez>"
+        summary+="\n\n :copyright: <https://github.com/yorammi/ez| yorammi/ez>"
     }
 
     try
