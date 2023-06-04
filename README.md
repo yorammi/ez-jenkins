@@ -1,5 +1,5 @@
 ![ez logo](/resources/images/ez/ez-logo-small.png)
-# <font color=blue size="16">ez-jenkins</font> - easy-to-use Jenkins-shared-library
+# <font color=blue size="16">EZJEL</font> (ez-jenkins-library) - easy-to-use Jenkins-shared-library
 
 ## EZJEL (ez-jenkins-library) - what is it for?
 
